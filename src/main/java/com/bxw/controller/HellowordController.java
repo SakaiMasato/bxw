@@ -5,6 +5,7 @@ import com.bxw.entity.Student;
 import com.bxw.entity.Teacher;
 import com.bxw.mapperA.StudentMapperA;
 import com.bxw.service.AsyncService;
+import com.bxw.service.RedisService;
 import com.bxw.service.StudentService;
 import com.bxw.service.TeacherService;
 import org.slf4j.Logger;
@@ -12,11 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 //@EnableAutoConfiguration
 @RestController//该注解标明该类全部返回json格式
@@ -30,6 +34,8 @@ public class HellowordController {
     private StudentMapperA studentMapperA;
     @Autowired
     private AsyncService asyncService;
+    @Autowired
+    private RedisService redisService;
 
     @ResponseBody
     @GetMapping("/hello")
@@ -87,6 +93,20 @@ public class HellowordController {
         asyncService.sendSms();
         System.out.println("=============getMsg================4");
         return "success";
+    }
+
+    //redis
+    @GetMapping("/setString")
+    @ResponseBody
+    public String setString(String key,String value){
+        redisService.setString(Optional.of(key),Optional.of(value),null);
+        return "success";
+    }
+
+    @GetMapping("/getValue")
+    @ResponseBody
+    public String getValue(String key){
+        return redisService.getValue(Optional.of(key));
     }
 //    public static void main(String[] args){
 //        SpringApplication.run(HellowordController.class,args);
