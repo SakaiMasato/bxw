@@ -13,13 +13,13 @@ import java.util.Map;
 @Configuration
 public class DataSourceConfigure {
     @Bean(name = "db1")
-    @ConfigurationProperties(prefix = "spring.datasource.db1") // application.properteis中对应属性的前缀
+    @ConfigurationProperties(prefix = "spring.datasource.db1") // application.yml.properteis中对应属性的前缀
     public DataSource dataSource1() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "db2")
-    @ConfigurationProperties(prefix = "spring.datasource.db2") // application.properteis中对应属性的前缀
+    @ConfigurationProperties(prefix = "spring.datasource.db2") // application.yml.properteis中对应属性的前缀
     public DataSource dataSource2() {
         return DataSourceBuilder.create().build();
     }
